@@ -1,0 +1,123 @@
+<!DOCTYPE html> <!-- обьявляем тип документа хтмл5-->
+<html> <!-- начало хтмл документа-->
+<head> <!-- секция с настройками (не видна на странице) -->
+    <title>Счётчик</title>  <!-- заголовок вкладки в браузере-->
+    <!-- вставляем css код-->
+
+    <style> /* цвет фона расположение, элементов, размер ... */
+        body { 
+            background: linear-gradient(90deg, #cd9ed2, #8d6193);
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            flex-direction: column;
+            height: 300px;
+            margin: 0;
+        }
+     #counterValue {
+        width: 150px;
+        font-size: 60px;
+        text-align:center;
+        padding: 20px;
+        margin: 20px auto;
+        border-radius: 15px;
+        background-color: blue;
+        
+     }
+    </style>
+</head> <!-- конец секции настроек -->
+<body> <!-- тело документа - все что видит пользователь-->
+    <div> <!-- блок - заголовок -->
+        Счётчик:
+    </div>
+
+    <div id="counterValue"> <!-- блок в котором отображается текущее число-->
+        0                   <!-- id="counterValue" имя блока для жс-->
+    </div>
+
+    <button id="minusBtn"> <!-- блок кнопки минус-->
+        -
+    </button>
+
+    <button id="plusBtn"> <!-- блок кнопки плюс-->
+        +
+    </button>
+
+    <div id="extremeMessage"> <!-- блок с сообщением об экстремальном значении счетчика -->
+
+    </div>
+
+    <!-- блок скрипта в конце боди чтобы все элементы загрузились-->
+    <script> 
+    // создаем переменную и присваиваем ей значение : найти первый див - блок с числом
+    let numberBlock = document.querySelector('#counterValue');
+
+    //создаем переменную и присваиваем ей : найти первую кнопку - кнопка минус
+    let minusBtn = document.querySelector('button');
+
+    //создаем переменную и присваиваем ей:  найти все кнопки выбрать вторую
+    let plusBtn = document.querySelectorAll('button')[1];
+
+    //создать переменную для хранения числа
+    let counter = 0;
+
+    //находим блок сообщения для экстр. значений
+    let extremeMsgDiv = document.getElementById('extremeMessage');
+
+    //добавляем функцию при обновлении экрана
+    function updateDisplay(){
+        numberBlock.textContent = counter; // текст внутри блока с числом:
+                                           // присваивается значение counter
+        //меняем цвет фона в зависимости от значения counter
+        if (counter > 0) {
+            numberBlock.style.backgroundColor = 'yellow';
+        }      
+        else if(counter < 0) {
+            numberBlock.style.backgroundColor = 'green';
+        }
+        else {
+            numberBlock.style.backgroundColor = 'red';
+        }                             
+
+        //показываем сообщение о превышении значений
+        if(counter <= -10 || counter >=10){
+            extremeMsgDiv.textContent = 'Вы достигли экстремального значения';
+        }
+        else {
+            extremeMsgDiv.textContent = '';
+        };
+
+        //блокировка кнопок при превышении значений
+        if(counter <= -10){
+            minusBtn.disabled = true;
+        }
+        else {
+            minusBtn.disabled = false;
+        };
+        
+        if(counter >= 10){
+            plusBtn.disabled = true;
+        } else {
+            plusBtn.disabled = false;
+        };
+    }
+
+    // событие на нажатие кнопки + (прибавляется 1)
+    plusBtn.addEventListener('click',function(){
+        counter = counter + 1;
+        updateDisplay();
+    });
+
+     // событие на нажатие кнопки - (вычитается 1)
+    minusBtn.addEventListener('click',function(){
+        counter = counter - 1;
+        updateDisplay();
+    });
+
+    //показываем исходное значение 
+    updateDisplay();
+       
+    </script>
+</body> <!-- конец тела документа -->
+
+</html> <!-- конец хтмл документа-->

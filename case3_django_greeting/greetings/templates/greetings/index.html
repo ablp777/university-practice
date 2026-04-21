@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title> Приветствие</title>
+        <style>
+            /* стиль для всей страницы: шрифт выравнивание отступы */
+            body{
+                background-color: rgb(211, 236, 211);
+                font-family: Arial, sans-serif; 
+                text-align: center;
+                margin-top: 50px;
+            }
+
+            /* Стиль для поля ввода:отступ внутри, вокруг, рамка,скругление */
+            input{
+                padding: 8px;
+                margin: 10px; 
+                border: 1px solid #ccc; 
+                border-radius: 5px; 
+            }    
+            
+            /* Стиль для кнопки: изменение курсора при наведении*/
+            button{
+                cursor: pointer; 
+            }
+
+        </style>
+    </head>
+
+    <body>
+        <h1>Введите ваше имя</h1>
+
+        <form method="post">
+            {% csrf_token %}
+            {{ form.as_p }}
+            <button type="submit">Отправить</button>
+        </form>
+
+        {% if last_greeting %}
+            <h2>Привет, {{ last_greeting.name }}!</h2>
+        {% endif %}        
+    </body>
+</html>
