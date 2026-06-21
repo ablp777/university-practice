@@ -33,7 +33,7 @@
         <form method="post">
             {% csrf_token %}
             {{ form.as_p }}
-            <button type="submit">Отправить</button>
+            <button type="submit">Submit</button>
         </form>
 
         {% if last_greeting %}
