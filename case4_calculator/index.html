@@ -20,7 +20,7 @@
         <!-- кнопки -->
 
         <button id="sumBtn">Сумма</button>
-        <button id="subBtn">Разница</button>
+        <button id="subBtn">Разность</button>
         <button id="mulBtn">Умножение</button>
         <button id="divBtn">Деление</button>
 
@@ -29,9 +29,82 @@
         <!-- выводим результат операций -->
         <div id="result">Результат: </div>
 
-        <!--  заготовка для лоики калькулятора -->
+        
         <script>
-            // js
+            //находим элементы интерфейса
+            let num1Input = document.getElementById('num1');
+            let num2Input = document.getElementById('num2');
+            let resultDiv = document.getElementById('result');
+
+            let sumBtn = document.getElementById('sumBtn');
+            let subBtn = document.getElementById('subBtn');
+            let mulBtn = document.getElementById('mulBtn');
+            let divBtn = document.getElementById('divBtn');
+
+            //функция чтения чисел из полей ввода
+            function getNumbers() {
+                let a = parseFloat(num1Input.value);
+                let b = parseFloat(num2Input.value);
+                //если хотя бы одно значение это не число — возвращаем null
+                if (isNaN(a) || isNaN(b)) {
+                    return null;
+                }
+                return { a, b };
+            }
+
+            //функция отображения результата
+            function showResult(value) {
+                resultDiv.textContent = 'Результат: ' + value;
+            }
+
+            //функция отображения ошибки
+            function showError(message) {
+                resultDiv.textContent = 'Ошибка: ' + message;
+            }
+
+            // обработчик для кнопки "сумма"
+            sumBtn.addEventListener('click', function() {
+                let nums = getNumbers();
+                if (nums === null) {
+                    showError('введите числа');
+                    return;
+                }
+                showResult(nums.a + nums.b);
+            });
+
+            //обработчик для кнопки "разность"
+            subBtn.addEventListener('click', function() {
+                let nums = getNumbers();
+                if (nums === null) {
+                    showError('введите числа');
+                    return;
+                }
+                showResult(nums.a - nums.b);
+            });
+
+            //обработчик для кнопки "умножение"
+            mulBtn.addEventListener('click', function() {
+                let nums = getNumbers();
+                if (nums === null) {
+                    showError('введите числа');
+                    return;
+                }
+                showResult(nums.a * nums.b);
+            });
+
+            //обработчик для кнопки "деление" (с проверкой деления на ноль)
+            divBtn.addEventListener('click', function() {
+                let nums = getNumbers();
+                if (nums === null) {
+                    showError('введите числа');
+                    return;
+                }
+                if (nums.b === 0) {
+                    showError('деление на ноль невозможно');
+                    return;
+                }
+                showResult(nums.a / nums.b);
+            });
         </script>
 
 
